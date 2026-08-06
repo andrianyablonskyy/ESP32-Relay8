@@ -1,0 +1,258 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Relay controller</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" type="text/css" href="/bootstrap.min.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      .error-status {
+        color: red;
+        font-weight: bold;
+        margin-bottom: 10px;
+        font-size: 0.9em;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body class="container-fluid">
+    <h1>WIFI Relay Control</h1>
+    <p>IP: <strong id="ipAddress">Unknown</strong></p>
+
+    <form id="relayForm" action="/set" method="POST" class="card" style="width: 100%">
+      <h2>Controls</h2>
+      <div class="error-status d-none"></div>
+      <input type="hidden" name="relay" id="relayInput" value="" />
+      <input type="hidden" name="state" id="stateInput" value="" />
+
+      <div class="r1 d-flex flex-row justify-content-start">
+        <div class="p-2">Relay 1:</div>
+        <div class="p-2">
+          <div class="btn-group" role="group">
+            <input type="radio" class="btn-check r-off" name="r1" id="r1-off" autocomplete="off" onclick="submitRelay(1, 'off')" checked />
+            <label class="btn btn-sm btn-outline-success" for="r1-off">OFF</label>
+            <input type="radio" class="btn-check r-on" name="r1" id="r1-on" autocomplete="off" onclick="submitRelay(1, 'on')" />
+            <label class="btn btn-sm btn-outline-warning" for="r1-on">ON</label>
+          </div>
+        </div>
+      </div>
+      <div class="r2 d-flex flex-row justify-content-start">
+        <div class="p-2">Relay 2:</div>
+        <div class="p-2">
+          <div class="btn-group" role="group">
+            <input type="radio" class="btn-check r-off" name="r2" id="r2-off" autocomplete="off" onclick="submitRelay(2, 'off')" checked />
+            <label class="btn btn-sm btn-outline-success" for="r2-off">OFF</label>
+            <input type="radio" class="btn-check r-on" name="r2" id="r2-on" autocomplete="off" onclick="submitRelay(2, 'on')" />
+            <label class="btn btn-sm btn-outline-warning" for="r2-on">ON</label>
+          </div>
+        </div>
+      </div>
+      <div class="r3 d-flex flex-row justify-content-start">
+        <div class="p-2">Relay 3:</div>
+        <div class="p-2">
+          <div class="btn-group" role="group">
+            <input type="radio" class="btn-check r-off" name="r3" id="r3-off" autocomplete="off" onclick="submitRelay(3, 'off')" checked />
+            <label class="btn btn-sm btn-outline-success" for="r3-off">OFF</label>
+            <input type="radio" class="btn-check r-on" name="r3" id="r3-on" autocomplete="off" onclick="submitRelay(3, 'on')" />
+            <label class="btn btn-sm btn-outline-warning" for="r3-on">ON</label>
+          </div>
+        </div>
+      </div>
+      <div class="r4 d-flex flex-row justify-content-start">
+        <div class="p-2">Relay 4:</div>
+        <div class="p-2">
+          <div class="btn-group" role="group">
+            <input type="radio" class="btn-check r-off" name="r4" id="r4-off" autocomplete="off" onclick="submitRelay(4, 'off')" checked />
+            <label class="btn btn-sm btn-outline-success" for="r4-off">OFF</label>
+            <input type="radio" class="btn-check r-on" name="r4" id="r4-on" autocomplete="off" onclick="submitRelay(4, 'on')" />
+            <label class="btn btn-sm btn-outline-warning" for="r4-on">ON</label>
+          </div>
+        </div>
+      </div>
+      <div class="r5 d-flex flex-row justify-content-start">
+        <div class="p-2">Relay 5:</div>
+        <div class="p-2">
+          <div class="btn-group" role="group">
+            <input type="radio" class="btn-check r-off" name="r5" id="r5-off" autocomplete="off" onclick="submitRelay(5, 'off')" checked />
+            <label class="btn btn-sm btn-outline-success" for="r5-off">OFF</label>
+            <input type="radio" class="btn-check r-on" name="r5" id="r5-on" autocomplete="off" onclick="submitRelay(5, 'on')" />
+            <label class="btn btn-sm btn-outline-warning" for="r5-on">ON</label>
+          </div>
+        </div>
+      </div>
+      <div class="r6 d-flex flex-row justify-content-start">
+        <div class="p-2">Relay 6:</div>
+        <div class="p-2">
+          <div class="btn-group" role="group">
+            <input type="radio" class="btn-check r-off" name="r6" id="r6-off" autocomplete="off" onclick="submitRelay(6, 'off')" checked />
+            <label class="btn btn-sm btn-outline-success" for="r6-off">OFF</label>
+            <input type="radio" class="btn-check r-on" name="r6" id="r6-on" autocomplete="off" onclick="submitRelay(6, 'on')" />
+            <label class="btn btn-sm btn-outline-warning" for="r6-on">ON</label>
+          </div>
+        </div>
+      </div>
+      <div class="r7 d-flex flex-row justify-content-start">
+        <div class="p-2">Relay 7:</div>
+        <div class="p-2">
+          <div class="btn-group" role="group">
+            <input type="radio" class="btn-check r-off" name="r7" id="r7-off" autocomplete="off" onclick="submitRelay(7, 'off')" checked />
+            <label class="btn btn-sm btn-outline-success" for="r7-off">OFF</label>
+            <input type="radio" class="btn-check r-on" name="r7" id="r7-on" autocomplete="off" onclick="submitRelay(7, 'on')" />
+            <label class="btn btn-sm btn-outline-warning" for="r7-on">ON</label>
+          </div>
+        </div>
+      </div>
+      <div class="r8 d-flex flex-row justify-content-start">
+        <div class="p-2">Relay 8:</div>
+        <div class="p-2">
+          <div class="btn-group" role="group">
+            <input type="radio" class="btn-check r-off" name="r8" id="r8-off" autocomplete="off" onclick="submitRelay(8, 'off')" checked />
+            <label class="btn btn-sm btn-outline-success" for="r8-off">OFF</label>
+            <input type="radio" class="btn-check r-on" name="r8" id="r8-on" autocomplete="off" onclick="submitRelay(8, 'on')" />
+            <label class="btn btn-sm btn-outline-warning" for="r8-on">ON</label>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex flex-row justify-content-start">
+        <div class="p-2">All Relays:</div>
+        <div class="p-2">
+          <button type="button" class="btn btn-sm btn-outline-success" onclick="submitRelay('all', 'off')">All Off</button>
+          <button type="button" class="btn btn-sm btn-outline-warning" onclick="submitRelay('all', 'on')">All On</button>
+        </div>
+      </div>
+    </form>
+  </body>
+
+  <script src="/bootstrap.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"
+  ></script>
+
+  <script>
+    const submitRelay = async (relay, state) => {
+      const form = document.getElementById("relayForm");
+      document.getElementById("relayInput").value = relay;
+      document.getElementById("stateInput").value = state;
+
+      const formData = new FormData(form);
+      const jsonPayload = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch("/set", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(jsonPayload),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to submit form data");
+        }
+
+        update();
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const updateRelayStatus = (data) => {
+      const relays = data && Array.isArray(data.relays) ? data.relays : [],
+        ipAddressElement = document.getElementById("ipAddress"),
+        allBtn = document.querySelectorAll(`#relayForm > .btn-check`);
+
+      // Check if the ipAddressElement exists
+      if (ipAddressElement) {
+        ipAddressElement.textContent = data.ip || "Unknown";
+      }
+
+      // Set all relay status button to unchecked before updating the status
+      for (let i = 0; i < allBtn.length; i++) {
+        allBtn[i].checked = false;
+      }
+
+      document.querySelector(".error-status").classList.add("d-none");
+
+      // Response data exmple
+      // {"ip":"10.85.192.18","relays":[{"id":1,"state":"OFF"},{"id":2,"state":"OFF"},{"id":3,"state":"OFF"},{"id":4,"state":"OFF"},{"id":5,"state":"OFF"},{"id":6,"state":"OFF"},{"id":7,"state":"OFF"},{"id":8,"state":"OFF"}]}
+      let counter = 8;
+      for (let relayIdx in relays) {
+        const id = parseInt(relayIdx) + 1,
+          relay = relays[relayIdx],
+          state = relay.state,
+          rOn = document.querySelector(`#r${id}-on`),
+          rOff = document.querySelector(`#r${id}-off`);
+
+        if (!rOn || !rOff) {
+          continue;
+        }
+
+        counter--;
+
+        console.log(`Relay ${id} = ${state}`);
+        if (state === "ON") {
+          rOn.checked = true;
+        } else if (state === "OFF") {
+          rOff.checked = true;
+        }
+      }
+
+      if (counter > 0) {
+        document.querySelector(".error-status").textContent = `Warning: ${counter} relay statuses are missing in the response data`;
+        document.querySelector(".error-status").classList.remove("d-none");
+      }
+    };
+
+    const update = () => {
+      fetch("/status", { method: "POST" })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch /status");
+          }
+          return response.text();
+        })
+        .then((text) => {
+          let data;
+          try {
+            data = JSON.parse(text);
+          } catch (error) {
+            data = null;
+          }
+
+          updateRelayStatus(data);
+        })
+        .catch((error) => {
+          const errorStatusElement = document.querySelector(".error-status");
+          errorStatusElement.textContent = "Error fetching relay statuses";
+          errorStatusElement.classList.remove("d-none");
+
+          // updateRelayStatus({
+          //   ip: "10.85.192.18",
+          //   relays: [
+          //     { id: 1, state: "OFF" },
+          //     { id: 2, state: "OFF" },
+          //     { id: 3, state: "OFF" },
+          //     { id: 4, state: "OFF" },
+          //     { id: 5, state: "OFF" },
+          //     { id: 6, state: "OFF" },
+          //     { id: 7, state: "OFF" },
+          //     { id: 8, state: "OFF" },
+          //   ],
+          // });
+        });
+    };
+
+    update();
+    setInterval(update, 5000);
+  </script>
+</html>
