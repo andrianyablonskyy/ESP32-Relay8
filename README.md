@@ -39,7 +39,7 @@ All commands run via the PlatformIO CLI (`pio`) from the project root.
 
 Everything lives in `src/main.cpp`; there's no split into modules/libs yet.
 
-- **WiFi provisioning**: `WiFiManager` (`wm.autoConnect(...)`) runs at boot. On first boot / lost credentials it opens a captive-portal AP (`8xRelayBoard_Config_AP` / `12345678`) for configuration; on success it reconnects using saved credentials. The web server and OTA are only started **after** a successful WiFi connection (see `setup()` — everything past `wm.autoConnect` is nested in the `if (success)` branch, so a failed/timed-out connect leaves the device with no HTTP/OTA access).
+- **WiFi provisioning**: `WiFiManager` (`wm.autoConnect(...)`) runs at boot. On first boot / lost credentials it opens a captive-portal AP (`Relay8_Config_AP` / `12345678`) for configuration; on success it reconnects using saved credentials. The web server and OTA are only started **after** a successful WiFi connection (see `setup()` — everything past `wm.autoConnect` is nested in the `if (success)` branch, so a failed/timed-out connect leaves the device with no HTTP/OTA access).
 - **Web server**: `ESPAsyncWebServer` on port 80, serving:
   - `GET /` → `data/index.html` from LittleFS, rendered through the `processor()` template callback (maps `%R1%`…`%R8%` placeholders to `relayStates[]`).
   - `GET /bootstrap.min.css`, `GET /bootstrap.min.js` → static assets from LittleFS.

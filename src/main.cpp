@@ -168,7 +168,7 @@ void setup() {
   // Automatically connects using saved credentials.
   // If connection fails, it starts an AP named "ESP32_Config_AP" with password "12345678"
   currentStatus = CONNECTING;
-  bool success = wm.autoConnect("8xRelayBoard_Config_AP", "12345678");
+  bool success = wm.autoConnect("Relay8_Config_AP", "12345678");
   if (!success) {
     Serial.println("Failed to connect or hit timeout.");
     // ESP.restart(); // Optional: restart and try again
