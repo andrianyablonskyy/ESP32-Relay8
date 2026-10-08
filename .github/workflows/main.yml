@@ -14,12 +14,15 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build-and-test:
-    # The type of virtual machine runner the job will run on
     runs-on: ubuntu-latest
-
-    # The individual tasks (steps) to be executed sequentially
+    permissions:
+      contents: read
+      pull-requests: write   # for the PR comment
     steps:
-      - name: test
-        uses: andrianyablonskyy/thub-action@v1
+      - uses: andrianyablonskyy/thub-action@v1
         with:
+          url: https://coord.yablonskyy.com      # your Coordinator's publicUrl
+          key: ${{ secrets.THUB_CI_TOKEN }}      # dashboard → CI tokens
+          type: sw                               # needs an online SW Client
+          command: ./ci/test.sh
           dry-run: true
