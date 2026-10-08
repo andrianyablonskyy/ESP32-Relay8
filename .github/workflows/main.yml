@@ -1,0 +1,25 @@
+# The name of the workflow as it appears in the GitHub Actions tab
+name: Node.js CI
+
+# Defines the events that trigger the workflow
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build-and-test:
+    # The type of virtual machine runner the job will run on
+    runs-on: ubuntu-latest
+
+    # The individual tasks (steps) to be executed sequentially
+    steps:
+      - name: test
+        uses: andrianyablonskyy/thub-action@v1
+        with:
+          dry-run: true
